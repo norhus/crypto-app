@@ -4,10 +4,11 @@ import { Asset } from "../types/AssetTypes";
 interface Props {
   assets: Asset[];
   searchInput: string;
+  sortBy: { column: string; ordering: string };
 }
 
 const AssetsTable: React.FC<Props> = (props) => {
-  const { assets, searchInput } = props;
+  const { assets, searchInput, sortBy } = props;
 
   return (
     <table>
@@ -26,7 +27,7 @@ const AssetsTable: React.FC<Props> = (props) => {
             asset.name.toLowerCase().includes(searchInput.toLowerCase())
           )
           .map((asset) => (
-            <tr>
+            <tr key={asset.name}>
               <td>{asset.rank}</td>
               <td>{asset.symbol}</td>
               <td>{asset.name}</td>

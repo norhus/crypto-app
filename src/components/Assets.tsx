@@ -3,10 +3,15 @@ import axios from "axios";
 import AssetsTable from "./AssetsTable";
 import { Asset, AssetFromCoinCap } from "../types/AssetTypes";
 import SearchBar from "./SearchBar";
+import SortSelect from "./SortSelect";
 
 const Assets: React.FC = () => {
   const [assets, setAssets] = useState([]);
-  const [searchInput, setsearchInput] = useState("");
+  const [searchInput, setSearchInput] = useState("");
+  const [sortBy, setSortBy] = useState({
+    column: "Rank",
+    ordering: "Ascending",
+  });
 
   useEffect(() => {
     fetchAssets();
@@ -32,13 +37,18 @@ const Assets: React.FC = () => {
   };
 
   const handleSearch = (newSearchInput: string) => {
-    setsearchInput(newSearchInput);
+    setSearchInput(newSearchInput);
+  };
+
+  const handleSortChange = (newColumn: string, newOrdering: string) => {
+    setSortBy({ column: newColumn, ordering: newOrdering });
   };
 
   return (
     <div>
       <SearchBar onSearch={handleSearch} />
-      <AssetsTable assets={assets} searchInput={searchInput} />;
+      <SortSelect onSortChange={handleSortChange} sortBy={sortBy} />
+      <AssetsTable assets={assets} searchInput={searchInput} sortBy={sortBy} />;
     </div>
   );
 };
