@@ -2,9 +2,11 @@ import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AssetsTable from "./AssetsTable";
 import { Asset, AssetFromCoinCap } from "../types/AssetTypes";
+import SearchBar from "./SearchBar";
 
 const Assets: React.FC = () => {
   const [assets, setAssets] = useState([]);
+  const [searchInput, setsearchInput] = useState("");
 
   useEffect(() => {
     fetchAssets();
@@ -29,7 +31,16 @@ const Assets: React.FC = () => {
     return { rank, symbol, name, priceUsd, changePercent24Hr } as Asset;
   };
 
-  return <AssetsTable assets={assets} />;
+  const handleSearch = (newSearchInput: string) => {
+    setsearchInput(newSearchInput);
+  };
+
+  return (
+    <div>
+      <SearchBar onSearch={handleSearch} />
+      <AssetsTable assets={assets} searchInput={searchInput} />;
+    </div>
+  );
 };
 
 export default Assets;

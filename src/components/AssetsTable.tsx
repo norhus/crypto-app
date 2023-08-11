@@ -3,10 +3,11 @@ import { Asset } from "../types/AssetTypes";
 
 interface Props {
   assets: Asset[];
+  searchInput: string;
 }
 
 const AssetsTable: React.FC<Props> = (props) => {
-  const { assets } = props;
+  const { assets, searchInput } = props;
 
   return (
     <table>
@@ -20,15 +21,19 @@ const AssetsTable: React.FC<Props> = (props) => {
         </tr>
       </thead>
       <tbody>
-        {assets.map((asset) => (
-          <tr>
-            <td>{asset.rank}</td>
-            <td>{asset.symbol}</td>
-            <td>{asset.name}</td>
-            <td>{asset.priceUsd}</td>
-            <td>{asset.changePercent24Hr}</td>
-          </tr>
-        ))}
+        {assets
+          .filter((asset) =>
+            asset.name.toLowerCase().includes(searchInput.toLowerCase())
+          )
+          .map((asset) => (
+            <tr>
+              <td>{asset.rank}</td>
+              <td>{asset.symbol}</td>
+              <td>{asset.name}</td>
+              <td>{asset.priceUsd}</td>
+              <td>{asset.changePercent24Hr}</td>
+            </tr>
+          ))}
       </tbody>
     </table>
   );
