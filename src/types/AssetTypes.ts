@@ -19,3 +19,11 @@ export interface Asset extends Record<string, any> {
   priceUsd: number;
   changePercent24Hr: number;
 }
+
+export interface TableRowStyles extends Record<string, any> {
+  bitcoin: string;
+  ethereum: string;
+  monero: string;
+  litecoin: string;
+  dogecoin: string;
+}

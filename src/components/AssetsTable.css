@@ -1,0 +1,17 @@
+.assetsTable {
+    width: 100%;
+}
+
+.tableRow {
+    transition: background-color 250ms ease;
+}
+
+.tableRowRed {
+    background-color: indianred;
+    transition: background-color 250ms ease;
+}
+
+.tableRowGreen {
+    background-color: lightgreen;
+    transition: background-color 250ms ease;
+}

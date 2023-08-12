@@ -1,14 +1,16 @@
 import React from "react";
-import { Asset } from "../types/AssetTypes";
+import { Asset, TableRowStyles } from "../types/AssetTypes";
+import "./AssetsTable.css";
 
 interface Props {
   assets: Asset[];
   searchInput: string;
   sortBy: { column: string; ordering: string };
+  tableRowStyles: TableRowStyles;
 }
 
 const AssetsTable: React.FC<Props> = (props) => {
-  const { assets, searchInput, sortBy } = props;
+  const { assets, searchInput, sortBy, tableRowStyles } = props;
 
   const sortFunc = () => {
     let ascending = sortBy.ordering === "ascending";
@@ -43,24 +45,43 @@ const AssetsTable: React.FC<Props> = (props) => {
     }
   };
 
-  const filterAndSort = () => {
-    return sortFunc()
-      .filter((asset) =>
-        asset.name.toLowerCase().includes(searchInput.toLowerCase())
-      )
-      .map((asset) => (
-        <tr key={asset.name}>
+  const mapFunc = (asset: Asset) => {
+    if (tableRowStyles.hasOwnProperty(asset.name.toLowerCase())) {
+      return (
+        <tr
+          key={asset.name}
+          className={tableRowStyles[asset.name.toLowerCase()]}
+        >
           <td>{asset.rank}</td>
           <td>{asset.symbol}</td>
           <td>{asset.name}</td>
           <td>{asset.priceUsd}</td>
           <td>{asset.changePercent24Hr}</td>
         </tr>
-      ));
+      );
+    } else {
+      return (
+        <tr key={asset.name} className={"tableRow"}>
+          <td>{asset.rank}</td>
+          <td>{asset.symbol}</td>
+          <td>{asset.name}</td>
+          <td>{asset.priceUsd}</td>
+          <td>{asset.changePercent24Hr}</td>
+        </tr>
+      );
+    }
+  };
+
+  const filterAndSort = () => {
+    return sortFunc()
+      .filter((asset) =>
+        asset.name.toLowerCase().includes(searchInput.toLowerCase())
+      )
+      .map((asset) => mapFunc(asset));
   };
 
   return (
-    <table>
+    <table className="assetsTable" cellSpacing={0}>
       <thead>
         <tr>
           <th>Rank</th>

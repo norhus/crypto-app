@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
 import AssetsTable from "./AssetsTable";
-import { Asset, AssetFromCoinCap } from "../types/AssetTypes";
+import { Asset, AssetFromCoinCap, TableRowStyles } from "../types/AssetTypes";
 import SearchBar from "./SearchBar";
 import SortSelect from "./SortSelect";
 import useWebSocket from "react-use-websocket";
@@ -13,30 +13,57 @@ const Assets: React.FC = () => {
     column: "rank",
     ordering: "ascending",
   });
+  const [tableRowStyles, setTableRowStyles] = useState<TableRowStyles>({
+    bitcoin: "tableRow",
+    ethereum: "tableRow",
+    monero: "tableRow",
+    litecoin: "tableRow",
+    dogecoin: "tableRow",
+  });
 
-  const { getWebSocket } = useWebSocket(
+  useWebSocket(
     "wss://ws.coincap.io/prices?assets=bitcoin,ethereum,monero,litecoin,dogecoin",
     {
       onOpen: () => console.log("WebSocket connection opened."),
       onClose: () => console.log("WebSocket connection closed."),
-      shouldReconnect: (closeEvent) => true,
+      shouldReconnect: () => true,
       onMessage: (e: WebSocketEventMap["message"]) => processMessage(e),
     }
   );
 
-  const processMessage = (e: { data: string }) => {
+  const processMessage = async (e: { data: string }) => {
     let newAssets: Asset[] = [...assets];
+    let newTableRowStyles = { ...tableRowStyles };
     let response = JSON.parse(e.data);
     let keys = Object.keys(response);
     keys.forEach((key) => {
       newAssets = newAssets.map((asset: Asset) => {
         if (asset.name.toLowerCase() === key) {
+          if (asset.priceUsd < response[key]) {
+            newTableRowStyles[key] = "tableRowGreen";
+          } else if (asset.priceUsd > response[key]) {
+            newTableRowStyles[key] = "tableRowRed";
+          } else {
+            newTableRowStyles[key] = "tableRow";
+          }
           return { ...asset, priceUsd: response[key] } as Asset;
         }
         return asset;
       });
     });
     setAssets(newAssets);
+    setTableRowStyles(newTableRowStyles);
+    setTimeout(
+      () =>
+        setTableRowStyles({
+          bitcoin: "tableRow",
+          ethereum: "tableRow",
+          monero: "tableRow",
+          litecoin: "tableRow",
+          dogecoin: "tableRow",
+        }),
+      500
+    );
   };
 
   useEffect(() => {
@@ -74,7 +101,13 @@ const Assets: React.FC = () => {
     <div>
       <SearchBar onSearch={handleSearch} />
       <SortSelect onSortChange={handleSortChange} sortBy={sortBy} />
-      <AssetsTable assets={assets} searchInput={searchInput} sortBy={sortBy} />;
+      <AssetsTable
+        assets={assets}
+        searchInput={searchInput}
+        sortBy={sortBy}
+        tableRowStyles={tableRowStyles}
+      />
+      ;
     </div>
   );
 };
