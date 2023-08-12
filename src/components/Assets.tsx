@@ -9,8 +9,8 @@ const Assets: React.FC = () => {
   const [assets, setAssets] = useState([]);
   const [searchInput, setSearchInput] = useState("");
   const [sortBy, setSortBy] = useState({
-    column: "Rank",
-    ordering: "Ascending",
+    column: "rank",
+    ordering: "ascending",
   });
 
   useEffect(() => {

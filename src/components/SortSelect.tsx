@@ -6,7 +6,7 @@ interface Props {
 }
 
 const SortSelect: React.FC<Props> = (props) => {
-  const handleSelectChange = (e: React.ChangeEvent<HTMLFormElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLFormElement>) => {
     if (e.target.name === "column") {
       props.onSortChange(e.target.value, props.sortBy.ordering);
     } else {
@@ -15,17 +15,17 @@ const SortSelect: React.FC<Props> = (props) => {
   };
 
   return (
-    <form onChange={handleSelectChange}>
+    <form onChange={handleChange}>
       <select name="column">
-        <option value="Rank">Rank</option>
-        <option value="Symbol">Symbol</option>
-        <option value="Name">Name</option>
-        <option value="Price USD">Price USD</option>
-        <option value="24h change %">24h change %</option>
+        <option value="rank">Rank</option>
+        <option value="symbol">Symbol</option>
+        <option value="name">Name</option>
+        <option value="priceUsd">Price USD</option>
+        <option value="changePercent24Hr">24h change %</option>
       </select>
-      <input type="radio" name="ordering" value="Ascending" defaultChecked />
+      <input type="radio" name="ordering" value="ascending" defaultChecked />
       Ascending
-      <input type="radio" name="ordering" value="Descending" />
+      <input type="radio" name="ordering" value="descending" />
       Descending
     </form>
   );

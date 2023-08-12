@@ -12,7 +12,7 @@ export interface AssetFromCoinCap {
   vwap24Hr: number;
 }
 
-export interface Asset {
+export interface Asset extends Record<string, any> {
   rank: number;
   symbol: string;
   name: string;
