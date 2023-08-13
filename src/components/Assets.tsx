@@ -5,6 +5,7 @@ import { Asset, AssetFromCoinCap, TableRowStyles } from "../types/AssetTypes";
 import SearchBar from "./SearchBar";
 import SortSelect from "./SortSelect";
 import useWebSocket from "react-use-websocket";
+import "./Assets.css";
 
 const Assets: React.FC = () => {
   const [assets, setAssets] = useState<Asset[]>([]);
@@ -98,16 +99,17 @@ const Assets: React.FC = () => {
   };
 
   return (
-    <div>
-      <SearchBar onSearch={handleSearch} />
-      <SortSelect onSortChange={handleSortChange} sortBy={sortBy} />
+    <div className="assets">
+      <div className="topBar">
+        <SearchBar onSearch={handleSearch} />
+        <SortSelect onSortChange={handleSortChange} sortBy={sortBy} />
+      </div>
       <AssetsTable
         assets={assets}
         searchInput={searchInput}
         sortBy={sortBy}
         tableRowStyles={tableRowStyles}
       />
-      ;
     </div>
   );
 };

@@ -1,0 +1,55 @@
+.sortSelect {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.sortSelect label {
+    align-items: center;
+    cursor: pointer;
+    font-size: 90%;
+}
+
+.sortSelect input[type=radio] {
+    height: 1em;
+    aspect-ratio: 1;
+    border: calc(1em/8) solid black;
+    padding: calc(1em/8);
+    background:
+            radial-gradient(farthest-side,#000974 94%,#0000)
+            50%/0 0 no-repeat content-box;
+    border-radius: 50%;
+    outline-offset: calc(1em/10);
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    cursor: pointer;
+    font-size: inherit;
+    transition: .3s;
+}
+.sortSelect input[type=radio]:checked {
+    border-color: #000974;
+    background-size: 100% 100%;
+}
+
+.sortSelect select {
+    height: 100%;
+    border-radius: 12px;
+    border: 2px solid lightgrey;
+    outline: none;
+    transition: all 0.3s cubic-bezier(0.19, 1, 0.22, 1);
+    box-shadow: 0px 0px 20px -18px;
+    padding: 0px 12px;
+}
+
+.sortSelect select:hover {
+    border: 2px solid grey;
+    box-shadow: 0px 0px 20px -17px;
+}
+
+.sortSelect select:active {
+    transform: scale(0.95);
+}
+
+.sortSelect select:focus {
+    border: 2px solid black;
+}

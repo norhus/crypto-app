@@ -1,4 +1,5 @@
 import React, { useRef } from "react";
+import "./SearchBar.css";
 
 interface Props {
   onSearch: (newSearchInput: string) => void;
@@ -18,7 +19,7 @@ const SearchBar: React.FC<Props> = (props) => {
   };
 
   return (
-    <form onSubmit={handleSubmit}>
+    <form onSubmit={handleSubmit} className="searchBar">
       <input type="search" placeholder="Search asset" ref={searchInput}></input>
       <button type="submit" value="Submit">
         Submit

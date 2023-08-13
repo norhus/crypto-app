@@ -1,5 +1,19 @@
-.assetsTable {
+.tableDiv {
     width: 100%;
+    height: 95%;
+    overflow-y: auto;
+}
+
+.tableDiv table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.tableDiv table thead {
+    background-color: black;
+    color: white;
+    position: sticky;
+    top: 0;
 }
 
 .tableRow {

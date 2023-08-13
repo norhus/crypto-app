@@ -81,18 +81,20 @@ const AssetsTable: React.FC<Props> = (props) => {
   };
 
   return (
-    <table className="assetsTable" cellSpacing={0}>
-      <thead>
-        <tr>
-          <th>Rank</th>
-          <th>Symbol</th>
-          <th>Name</th>
-          <th>Price USD</th>
-          <th>24h change %</th>
-        </tr>
-      </thead>
-      <tbody>{filterAndSort()}</tbody>
-    </table>
+    <div className="tableDiv">
+      <table cellSpacing={0}>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Symbol</th>
+            <th>Name</th>
+            <th>Price USD</th>
+            <th>24h change %</th>
+          </tr>
+        </thead>
+        <tbody>{filterAndSort()}</tbody>
+      </table>
+    </div>
   );
 };
 

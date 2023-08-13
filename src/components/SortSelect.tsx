@@ -1,4 +1,5 @@
 import React from "react";
+import "./SortSelect.css";
 
 interface Props {
   onSortChange: (newColumn: string, newOrdering: string) => void;
@@ -15,7 +16,7 @@ const SortSelect: React.FC<Props> = (props) => {
   };
 
   return (
-    <form onChange={handleChange}>
+    <form onChange={handleChange} className="sortSelect">
       <select name="column">
         <option value="rank">Rank</option>
         <option value="symbol">Symbol</option>
@@ -23,10 +24,14 @@ const SortSelect: React.FC<Props> = (props) => {
         <option value="priceUsd">Price USD</option>
         <option value="changePercent24Hr">24h change %</option>
       </select>
-      <input type="radio" name="ordering" value="ascending" defaultChecked />
-      Ascending
-      <input type="radio" name="ordering" value="descending" />
-      Descending
+      <label>
+        <input type="radio" name="ordering" value="ascending" defaultChecked />
+        Ascending
+      </label>
+      <label>
+        <input type="radio" name="ordering" value="descending" />
+        Descending
+      </label>
     </form>
   );
 };
